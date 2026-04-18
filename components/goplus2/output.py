@@ -43,3 +43,13 @@ async def output_to_code(config):
     cg.add(var.set_parent(parent))
     cg.add(var.set_channel(config[CONF_CHANNEL]))
     await output.register_output(var, config)
+
+# -----------------------------
+# REGISTER THE OUTPUT PLATFORM
+# -----------------------------
+output.setup_output_platform_(
+    "goplus2",
+    GoPlus2ServoOutput,
+    OUTPUT_SCHEMA,
+    output_to_code
+)
