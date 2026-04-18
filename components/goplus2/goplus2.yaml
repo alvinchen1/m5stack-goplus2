@@ -1,0 +1,14 @@
+goplus2:
+  id: goplus2_main
+  address: 0x38
+
+output:
+  - platform: goplus2
+    id: pan_output
+    goplus2_id: goplus2_main
+    channel: 0
+
+  - platform: goplus2
+    id: tilt_output
+    goplus2_id: goplus2_main
+    channel: 1
