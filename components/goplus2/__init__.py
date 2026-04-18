@@ -1,11 +1,22 @@
 # components/goplus2/__init__.py
-# Mark this package as a platform component so ESPHome treats it as an output platform.
-IS_PLATFORM_COMPONENT = True
+import esphome.codegen as cg
+import esphome.config_validation as cv
+from esphome.components import i2c
+from esphome.const import CONF_ID
 
-# Import the platform implementation and re-export the module-level symbols ESPHome expects.
-from . import output as output_mod
+# Import platform support
+from . import output
 
-# Expose the expected names at package level
-CONFIG_SCHEMA = output_mod.CONFIG_SCHEMA
-PLATFORM_SCHEMA = output_mod.PLATFORM_SCHEMA
-to_code = output_mod.to_code
+goplus2_ns = cg.esphome_ns.namespace("goplus2")
+GoPlus2Component = goplus2_ns.class_("GoPlus2Component", cg.Component, i2c.I2CDevice)
+
+# Component-level schema (top-level `goplus2:` block)
+CONFIG_SCHEMA = cv.Schema({
+    cv.GenerateID(): cv.declare_id(GoPlus2Component),
+}).extend(i2c.i2c_device_schema(0x38))
+
+# Component codegen (creates the I2C device / component)
+async def to_code(config):
+    var = cg.new_Pvariable(config[CONF_ID])
+    await i2c.register_i2c_device(var, config)
+    await cg.register_component(var, config)
