@@ -1,1 +1,2 @@
-from .output import CONFIG_SCHEMA
+# simplest
+from . import output
