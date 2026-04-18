@@ -10,21 +10,33 @@ GoPlus2ServoOutput = goplus2_ns.class_("GoPlus2ServoOutput", output.FloatOutput)
 
 CONF_GOPLUS2_ID = "goplus2_id"
 
+# -----------------------------
+# 1. Component-level schema
+# -----------------------------
 CONFIG_SCHEMA = cv.Schema({
     cv.GenerateID(): cv.declare_id(GoPlus2Component),
 }).extend(i2c.i2c_device_schema(0x38))
 
+# -----------------------------
+# 2. Output-level schema
+# -----------------------------
 OUTPUT_SCHEMA = output.FLOAT_OUTPUT_SCHEMA.extend({
     cv.GenerateID(): cv.declare_id(GoPlus2ServoOutput),
     cv.Required(CONF_GOPLUS2_ID): cv.use_id(GoPlus2Component),
     cv.Required(CONF_CHANNEL): cv.int_range(min=0, max=1),
 })
 
+# -----------------------------
+# 3. Component codegen
+# -----------------------------
 async def to_code(config):
     var = cg.new_Pvariable(config[CONF_ID])
     await i2c.register_i2c_device(var, config)
     await cg.register_component(var, config)
 
+# -----------------------------
+# 4. Output codegen
+# -----------------------------
 async def output_to_code(config):
     parent = await cg.get_variable(config[CONF_GOPLUS2_ID])
     var = cg.new_Pvariable(config[CONF_ID])

@@ -1,2 +1,1 @@
-# components/goplus2/__init__.py
-from .output import GoPlus2Component, GoPlus2ServoOutput
+from .output import CONFIG_SCHEMA, OUTPUT_SCHEMA, to_code, output_to_code
