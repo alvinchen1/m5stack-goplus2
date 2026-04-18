@@ -14,7 +14,7 @@ CONF_GOPLUS2_ID = "goplus2_id"
 CONFIG_SCHEMA = output.FLOAT_OUTPUT_SCHEMA.extend({
     cv.GenerateID(): cv.declare_id(GoPlus2ServoOutput),
     cv.Required(CONF_GOPLUS2_ID): cv.use_id(GoPlus2Component),
-    cv.Required(CONF_CHANNEL): cv.int_range(min=0, max=1),
+    cv.Required(CONF_CHANNEL): cv.int_range(min=0, max=3),
 })
 
 # Platform codegen (called for each `output:` entry)
