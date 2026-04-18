@@ -67,12 +67,10 @@ script:
           then:
             - servo.write:
                 id: pan_servo
-                level:
-                  lambda: "return random_float();"
+                level: !lambda "return random_float();"
             - servo.write:
                 id: tilt_servo
-                level:
-                  lambda: "return random_float();"
+                level: !lambda "return random_float();"
             - delay: 300ms
       - switch.turn_off: laser
 
