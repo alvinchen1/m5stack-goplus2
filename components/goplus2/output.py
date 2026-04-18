@@ -11,7 +11,7 @@ GoPlus2ServoOutput = goplus2_ns.class_("GoPlus2ServoOutput", output.FloatOutput)
 CONF_GOPLUS2_ID = "goplus2_id"
 
 # Platform schema for `output: - platform: goplus2`
-PLATFORM_SCHEMA = output.FLOAT_OUTPUT_SCHEMA.extend({
+CONFIG_SCHEMA = output.FLOAT_OUTPUT_SCHEMA.extend({
     cv.GenerateID(): cv.declare_id(GoPlus2ServoOutput),
     cv.Required(CONF_GOPLUS2_ID): cv.use_id(GoPlus2Component),
     cv.Required(CONF_CHANNEL): cv.int_range(min=0, max=1),
