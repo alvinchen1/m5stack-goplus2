@@ -1,3 +1,4 @@
+// components/goplus2/goplus2.h
 #pragma once
 
 #include "esphome/core/component.h"

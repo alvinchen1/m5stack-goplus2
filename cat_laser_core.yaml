@@ -1,5 +1,6 @@
 esphome:
-  name: cat_laser_core
+  name: cat-laser-toy
+  friendly_name: Cat Laser Toy
 
 esp32:
   board: m5stack-core-esp32
@@ -7,6 +8,7 @@ esp32:
     type: arduino
 
 logger:
+  level: DEBUG
 api:
 ota:
 
@@ -20,7 +22,7 @@ i2c:
   scan: true
 
 external_components:
-  - source: local
+  - source: github://alvinchen1/m5stack-goplus2
     components: [goplus2]
 
 goplus2:
@@ -41,13 +43,19 @@ output:
 servo:
   - id: pan_servo
     output: pan_output
+    min_level: -1.0
+    max_level: 1.0
+
   - id: tilt_servo
     output: tilt_output
+    min_level: -1.0
+    max_level: 1.0
 
 switch:
   - platform: gpio
     id: laser
     pin: 26
+    inverted: false
 
 script:
   - id: random_laser_motion
@@ -59,10 +67,12 @@ script:
           then:
             - servo.write:
                 id: pan_servo
-                level: !lambda "return random_float() * 2.0 - 1.0;"
+                level:
+                  lambda: "return random_float() * 2.0 - 1.0;"
             - servo.write:
                 id: tilt_servo
-                level: !lambda "return random_float() * 2.0 - 1.0;"
+                level:
+                  lambda: "return random_float() * 2.0 - 1.0;"
             - delay: 300ms
       - switch.turn_off: laser
 
