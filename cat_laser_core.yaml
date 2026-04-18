@@ -43,12 +43,12 @@ output:
 servo:
   - id: pan_servo
     output: pan_output
-    min_level: -1.0
+    min_level: 0.0
     max_level: 1.0
 
   - id: tilt_servo
     output: tilt_output
-    min_level: -1.0
+    min_level: 0.0
     max_level: 1.0
 
 switch:
@@ -68,11 +68,11 @@ script:
             - servo.write:
                 id: pan_servo
                 level:
-                  lambda: "return random_float() * 2.0 - 1.0;"
+                  lambda: "return random_float();"
             - servo.write:
                 id: tilt_servo
                 level:
-                  lambda: "return random_float() * 2.0 - 1.0;"
+                  lambda: "return random_float();"
             - delay: 300ms
       - switch.turn_off: laser
 
